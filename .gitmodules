@@ -1,0 +1,3 @@
+[submodule "PT1K_RTD_Example"]
+	path = PT1K_RTD_Example
+	url = https://github.com/FirstBuild/PT1K_RTD_Example.git
