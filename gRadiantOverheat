@@ -1,0 +1,41 @@
+int overheatSensor1 = D0;
+
+// begin with the overheat sensor untripped
+void setup() {
+   pinMode(overheatSensor1, OUTPUT);
+   Particle.function("0",setOverheat);
+   digitalWrite(overheatSensor1, 0);
+}
+
+void loop() { }
+
+// Send a "1" or "0" to trip the overhear alert or quit the overheat alert, respectively
+int setOverheat(String command) {
+    if (command=="1") {
+        digitalWrite(overheatSensor1,1);
+        // send a "setOverheat" command to IFTTT
+        Particle.publish("setOverheat");
+        return 1;
+    }
+    else if (command=="0") {
+        digitalWrite(overheatSensor1,0);
+        return 0;
+    }
+    else {
+        return -1;
+    }
+
+// explicitly trip the overheat alert (no command parameter needed)
+int tripOverheat(String command) {
+        digitalWrite(overheatSensor1,1);
+        // send a "setOverheat" command to IFTTT
+        Particle.publish("setOverheat");
+        return 1;
+    }
+
+// explicitly quit the overheat alert (no command parameter needed)
+int quitOverheat(String command) {
+        digitalWrite(overheatSensor1,0);
+        return 0;
+    }
+}
